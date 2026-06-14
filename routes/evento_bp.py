@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint, request, jsonify
 from model.EventoModel import EventoModel
 from dao.EventoDao import EventoDao
-evento_bp = Blueprint(__name__, 'evento')
+evento_bp = Blueprint('evento',__name__)
 evento_dao = EventoDao()
 
 @evento_bp.route('', methods=['GET'])

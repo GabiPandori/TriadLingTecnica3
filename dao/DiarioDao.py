@@ -1,3 +1,4 @@
+from model.DiarioModel import DiarioModel
 class DiarioDao:
     def __init__(self):
         self.relatos = {
@@ -9,14 +10,15 @@ class DiarioDao:
     def obterRelato(self, idDiario):
         return self.relatos.get(idDiario, None)
     
-    def criarRelato(self, diario):
+    def criarRelato(self, dados):
         idDiario = max(self.relatos.keys()) + 1
+        relato = DiarioModel(idDiario=idDiario,texto=dados.get('texto'),data="hoje")
         self.relatos[idDiario] = {
             "idDiario": idDiario,
-            "texto": diario.texto,
-            "data": diario.data
+            "texto": relato.texto,
+            "data":relato.data
         }
-        return self.relatos[idDiario]
+        return relato
     
     def listarRelatos(self):
         listaRelatos = list(self.relatos.values())

@@ -1,15 +1,14 @@
 from flask import Flask, Blueprint, request, jsonify
 from model.DiarioModel import DiarioModel
 from dao.DiarioDao import DiarioDao
-diario_bp = Blueprint(__name__, 'diario')
+diario_bp = Blueprint('diario', __name__)
 diario_dao = DiarioDao()
 
-@diario_bp.route('/<int:idDiario>', methods=['POST'])
-def criarRelato(idDiario):
+@diario_bp.route('', methods=['POST'])
+def criarRelato():
     dados = request.get_json()
-    diario = DiarioModel(idDiario=idDiario, texto = dados.get('texto'), data = dados.get('data')) 
-    diario_dao.criarRelato(diario)
-    return jsonify({"message": "Relato criado com sucesso!", "dados": diario}), 201
+    relato = diario_dao.criarRelato(dados)
+    return jsonify({"message": "Relato criado com sucesso!", "dados": relato}), 201
 
 @diario_bp.route('/<int:idDiario>', methods=['GET'])
 def obterRelato(idDiario):
