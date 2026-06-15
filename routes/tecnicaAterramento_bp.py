@@ -4,7 +4,7 @@ from dao.TecnicaAterramentoDao import TecnicaAterramentoDao
 tecnicaAterramento_bp = Blueprint('tecnicaAterramento_bp', __name__)
 tecnicaAterramento_dao = TecnicaAterramentoDao()
 
-@tecnicaAterramento_bp.route('/tecnicaAterramento/<int:idTecnica>', methods=['GET'])
+@tecnicaAterramento_bp.route('/<int:idTecnica>', methods=['GET'])
 def obterTecnica(idTecnica):
     tecnica = tecnicaAterramento_dao.obterTecnica(idTecnica)
     if tecnica:
@@ -12,7 +12,7 @@ def obterTecnica(idTecnica):
     else:
         return jsonify({"error": "Técnica de aterramento não encontrada."}), 404
     
-@tecnicaAterramento_bp.route('/tecnicaAterramento', methods=['GET'])
+@tecnicaAterramento_bp.route('', methods=['GET'])
 def listarTecnicas():
     tecnicas = tecnicaAterramento_dao.listarTecnicas()
     return jsonify(tecnicas), 200

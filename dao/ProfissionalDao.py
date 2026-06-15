@@ -1,42 +1,44 @@
-# from model.ProfissionalModel import ProfissionalModel
-# class ProfissionalDao:
-#     def __init__(self):
-#         self.profissionais = {
-#             1: {"idProfissional": 1, "nome": "Gabi", "email": "gabi@gmail.com", "dataNasc": "2009-03-31", "genero": "Feminino", "telefone": "1234567890", "senha": "password123"},
-#             2: {"idProfissional": 2, "nome": "Amanda", "email": "amanda@gmail.com", "dataNasc": "2008-08-02", "genero": "Masculino", "telefone": "0987654321", "senha": "password456"}
-#         }
+from model.ProfissionalModel import ProfissionalModel
+class ProfissionalDao:
+    def __init__(self):
+        self.profissionais = {
+            1: {"idProfissional": 1, "nome": "Alice", "telefone": "11988002297", "dataNasc": "1981-10-12", "genero": "Feminino", "documentoCip": "15el554", "email": "alicesantos@gmail.com", "senha": "47190"},
+            2: {"idProfissional": 2, "nome": "Carlos", "telefone": "11988002207", "dataNasc": "1979-11-29", "genero": "Masculino", "documentoCip": "17334sp", "email": "carlosalberto@gmail.com", "senha": "29182"}
+        }
 
-#     def criarUsuario(self, dados):
-#         novo_id = max(self.usuarios.keys()) + 1
-#         usuario = UsuarioModel(
-#             idUsuario=novo_id,
-#             nome=dados['nome'],
-#             email=dados['email'],
-#             dataNasc=dados['dataNasc'],
-#             genero=dados['genero'],
-#             telefone=dados['telefone'],
-#             senha=dados['senha']
-#         )
-#         self.usuarios[novo_id] = usuario.__dict__
-#         return self.usuarios[novo_id]
+    def criarProfissional(self, dados):
+        novo_id = max(self.profissionais.keys()) + 1
+        profissional = ProfissionalModel(
+            idProfissional=novo_id,
+            nome=dados['nome'],
+            telefone=dados['telefone'],
+            dataNasc=dados['dataNasc'],
+            genero=dados['genero'],
+            documentoCip=dados['documentoCip'],
+            email=dados['email'],
+            senha=dados['senha']
+        )
+        self.profissionais[novo_id] = profissional.__dict__
+        return self.profissionais[novo_id]
     
-#     def obterUsuario(self, idUsuario):
-#         return self.usuarios.get(idUsuario)
+    def obterProfissional(self, idProfissional):
+        return self.profissionais.get(idProfissional)
     
-#     def atualizarUsuario(self, idUsuario, dados):
-#         if idUsuario in self.usuarios:
-#             usuario = self.usuarios[idUsuario]
-#             usuario['nome'] = dados.get('nome', usuario['nome'])
-#             usuario['email'] = dados.get('email', usuario['email'])
-#             usuario['dataNasc'] = dados.get('dataNasc', usuario['dataNasc'])
-#             usuario['genero'] = dados.get('genero', usuario['genero'])
-#             usuario['telefone'] = dados.get('telefone', usuario['telefone'])
-#             usuario['senha'] = dados.get('senha', usuario['senha'])
-#             return usuario
-#         return None
+    def atualizarProfissional(self, idProfissional, dados):
+        if idProfissional in self.profissionais:
+            profissional = self.profissionais[idProfissional]
+            profissional['nome'] = dados.get('nome', profissional['nome'])
+            profissional['email'] = dados.get('email', profissional['email'])
+            profissional['dataNasc'] = dados.get('dataNasc', profissional['dataNasc'])
+            profissional['genero'] = dados.get('genero', profissional['genero'])
+            profissional['telefone'] = dados.get('telefone', profissional['telefone'])
+            profissional['senha'] = dados.get('senha', profissional['senha'])
+            profissional['documentoCip'] = dados.get('documentoCip', profissional['documentoCip'])
+            return profissional
+        return None
     
-#     def excluirUsuario(self, idUsuario):
-#         if idUsuario in self.usuarios:
-#             del self.usuarios[idUsuario]
-#             return True
-#         return False
+    def excluirProfissional(self, idProfissional):
+        if idProfissional in self.profissionais:
+            del self.profissionais[idProfissional]
+            return True
+        return False
