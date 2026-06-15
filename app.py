@@ -9,6 +9,7 @@ app.register_blueprint(diario_bp, url_prefix='/api/diario')
 app.register_blueprint(evento_bp, url_prefix='/api/evento')
 app.register_blueprint(livro_bp, url_prefix='/api/livro')
 app.register_blueprint(frase_bp, url_prefix='/api/frase')
+app
 
 if __name__ == '__main__':
     app.run(debug=True)
