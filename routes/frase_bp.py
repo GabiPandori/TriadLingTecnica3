@@ -5,7 +5,7 @@ from dao.FraseDiariaDao import FraseDiariaDao
 frase_bp = Blueprint('frase', __name__)
 frase_dao = FraseDiariaDao()
 
-@frase_bp.route('/frase/<string:data>', methods=['GET'])
+@frase_bp.route('/<string:data>', methods=['GET'])
 def obterFrase(data):
     frase = frase_dao.obterFrase(data)
     if frase:
