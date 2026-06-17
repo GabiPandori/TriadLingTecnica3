@@ -18,7 +18,7 @@ class DiarioDao:
             "texto": relato.texto,
             "data":relato.data
         }
-        return relato
+        return self.relatos[idDiario]
     
     def listarRelatos(self):
         listaRelatos = list(self.relatos.values())
