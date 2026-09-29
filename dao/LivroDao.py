@@ -1,15 +1,15 @@
 from model.LivroMensalModel import LivroMensalModel
-class LivroDao:
-    def __init__(self):
-        self.livros = {
-            1: {"titulo": "O Pequeno Príncipe", "autor": "Antoine de Saint-Exupéry"},
-            2: {"titulo": "Dom Quixote", "autor": "Miguel de Cervantes"},
-            3: {"titulo": "A Metamorfose", "autor": "Franz Kafka"}
-        }
 
-    def obterLivro(self, mes):
-        for livro in self.livros.values():
-            if livro.get("mes") == mes:
+class LivroDao:
+    livros = {
+        1: {"titulo": "O Pequeno Príncipe", "autor": "Antoine de Saint-Exupéry", "mes": 1},
+        2: {"titulo": "Dom Quixote", "autor": "Miguel de Cervantes", "mes": 2},
+        3: {"titulo": "A Metamorfose", "autor": "Franz Kafka", "mes": 3}
+    }
+
+    @staticmethod
+    def obterLivro(mes):
+        for livro in LivroDao.livros.values():
+            if str(livro.get("mes")) == str(mes):
                 return livro
         return None
-    
