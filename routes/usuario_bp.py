@@ -1,40 +1,39 @@
-from flask import Flask, Blueprint, request, jsonify
-from model.UsuarioModel import UsuarioModel
-from dao.UsuarioDao import UsuarioDao
-usuario_bp = Blueprint('usuario', __name__)
-usuario_dao = UsuarioDao()
+from flask import Blueprint, request, jsonify
+from service.usuario_service import UsuarioService
 
-#criar um usuario
+usuario_bp = Blueprint('usuario', __name__)
+usuario_service = UsuarioService()
+
 @usuario_bp.route('', methods=['POST'])
 def criarUsuario():
-    dados = request.get_json()
-    usuario = usuario_dao.criarUsuario(dados)
-    return jsonify({"message": "Usuário criado com sucesso!", "dados": usuario}), 201
+    dados = request.get_json() or {}
+    try:
+        usuario = usuario_service.criarUsuario(dados)
+        return jsonify({"message": "Usuário criado com sucesso!", "dados": usuario}), 201
+    except ValueError as e:
+        return jsonify({"message": str(e)}), 400
 
-#mostar um usuario especifico
 @usuario_bp.route('/<int:idUsuario>', methods=['GET'])
 def obterUsuario(idUsuario):
-    usuario = usuario_dao.obterUsuario(idUsuario)
-    if usuario:
+    try:
+        usuario = usuario_service.obterUsuario(idUsuario)
         return jsonify(usuario), 200
-    else:
-        return jsonify({"message": "Usuário não encontrado!"}), 404
+    except ValueError as e:
+        return jsonify({"message": str(e)}), 404
 
-#atualizar um usuario
 @usuario_bp.route('/<int:idUsuario>', methods=['PUT'])
 def atualizarUsuario(idUsuario):
-    dados = request.get_json()
-    usuario = usuario_dao.atualizarUsuario(idUsuario, dados)
-    if usuario:
+    dados = request.get_json() or {}
+    try:
+        usuario = usuario_service.atualizarUsuario(idUsuario, dados)
         return jsonify({"message": "Usuário atualizado com sucesso!", "dados": usuario}), 200
-    else:
-        return jsonify({"message": "Usuário não encontrado!"}), 404
-    
-#deletar um usuario
+    except ValueError as e:
+        return jsonify({"message": str(e)}), 404
+
 @usuario_bp.route('/<int:idUsuario>', methods=['DELETE'])
 def excluirUsuario(idUsuario):
-    sucesso = usuario_dao.excluirUsuario(idUsuario)
-    if sucesso:
+    try:
+        usuario_service.excluirUsuario(idUsuario)
         return jsonify({"message": "Usuário excluído com sucesso!"}), 200
-    else:
-        return jsonify({"message": "Usuário não encontrado!"}), 404
+    except ValueError as e:
+        return jsonify({"message": str(e)}), 404

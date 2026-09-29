@@ -1,18 +1,17 @@
-from flask import Blueprint, request, jsonify
-from model.FraseDiariaModel import FraseDiariaModel
-from dao.FraseDiariaDao import FraseDiariaDao
+from flask import Blueprint, jsonify
+from service.fraseDiaria_service import FraseDiariaService
 
 frase_bp = Blueprint('frase', __name__)
-frase_dao = FraseDiariaDao()
+frase_service = FraseDiariaService()
 
 @frase_bp.route('/<string:data>', methods=['GET'])
 def obterFrase(data):
-    frase = frase_dao.obterFrase(data)
-    if frase:
+    try:
+        frase = frase_service.obterFrase(data)
         return jsonify({"message": "Frase encontrada!", "dados": frase}), 200
-    return jsonify({"message": "Frase não encontrada!"}), 404
+    except ValueError as e:
+        return jsonify({"message": str(e)}), 404
 
 @frase_bp.route('', methods=['GET'])
 def listarFrases():
-    frases = frase_dao.listarFrases()
-    return jsonify({"message": "Frases listadas!", "dados": frases}), 200
+    return jsonify({"message": "Frases listadas!", "dados": frase_service.listarFrases()}), 200

@@ -1,18 +1,17 @@
-from flask import Flask, Blueprint, request, jsonify
-from model.TecnicaAterramentoModel import TecnicaAterramentoModel
-from dao.TecnicaAterramentoDao import TecnicaAterramentoDao
+from flask import Blueprint, jsonify
+from service.tecnicaAterramento_service import TecnicaAterramentoService
+
 tecnicaAterramento_bp = Blueprint('tecnicaAterramento_bp', __name__)
-tecnicaAterramento_dao = TecnicaAterramentoDao()
+tecnicaAterramento_service = TecnicaAterramentoService()
 
 @tecnicaAterramento_bp.route('/<int:idTecnica>', methods=['GET'])
 def obterTecnica(idTecnica):
-    tecnica = tecnicaAterramento_dao.obterTecnica(idTecnica)
-    if tecnica:
+    try:
+        tecnica = tecnicaAterramento_service.obterTecnica(idTecnica)
         return jsonify(tecnica), 200
-    else:
-        return jsonify({"error": "Técnica de aterramento não encontrada."}), 404
-    
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 404
+
 @tecnicaAterramento_bp.route('', methods=['GET'])
 def listarTecnicas():
-    tecnicas = tecnicaAterramento_dao.listarTecnicas()
-    return jsonify(tecnicas), 200
+    return jsonify(tecnicaAterramento_service.listarTecnicas()), 200
