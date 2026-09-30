@@ -1,11 +1,11 @@
 from flask import Flask
-from route.diario_bp import diario_bp
-from route.evento_bp import evento_bp
-from route.livro_bp import livro_bp
-from route.frase_bp import frase_bp
-from route.tecnicaAterramento_bp import tecnicaAterramento_bp
-from route.usuario_bp import usuario_bp
-from route.profissional_bp import profissional_bp
+from routes.diario_bp import diario_bp
+from routes.evento_bp import evento_bp
+from routes.livro_bp import livro_bp
+from routes.frase_bp import frase_bp
+from routes.tecnicaAterramento_bp import tecnicaAterramento_bp
+from routes.usuario_bp import usuario_bp
+from routes.profissional_bp import profissional_bp
 
 app = Flask(__name__)
 
