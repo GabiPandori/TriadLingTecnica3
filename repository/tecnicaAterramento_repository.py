@@ -6,4 +6,4 @@ class TecnicaAterramentoRepository:
 
     def listarTecnicas(self):
         return TecnicaAterramentoDao.listarTecnicas()
-    
+
