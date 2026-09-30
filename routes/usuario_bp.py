@@ -17,7 +17,7 @@ def criarUsuario():
 def obterUsuario(idUsuario):
     try:
         usuario = usuario_service.obterUsuario(idUsuario)
-        return jsonify(usuario), 200
+        return jsonify(usuario), 200    
     except ValueError as e:
         return jsonify({"message": str(e)}), 404
 
